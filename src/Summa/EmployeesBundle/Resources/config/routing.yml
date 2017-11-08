@@ -1,0 +1,3 @@
+summa_companies:
+    type: rest
+    resource: Summa\EmployeesBundle\Controller\CompanyController
