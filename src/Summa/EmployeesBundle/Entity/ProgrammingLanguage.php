@@ -3,10 +3,9 @@
 namespace Summa\EmployeesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as JMS;
 
 /**
- * @ORM\Table("Programming_languages")
+ * @ORM\Table("programming_languages")
  * @ORM\Entity
  */
 class ProgrammingLanguage

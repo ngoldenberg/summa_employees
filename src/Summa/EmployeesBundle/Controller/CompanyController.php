@@ -13,11 +13,8 @@ class CompanyController extends FOSRestController implements ClassResourceInterf
         $companies = $this->getDoctrine()->getRepository('EmployeesBundle:Company')->findBy([
             'active' => true
         ]);
-        $view = $this->view($companies);
-        $context = new Context();
-        $context->setGroups(['Default', 'employees']);
-        $view->setContext($context);
-        $view->getContext()->enableMaxDepth();
+
+        $view = $this->getView($companies, ['Default', 'employees']);
         return $this->handleView($view);
     }
 
@@ -29,12 +26,7 @@ class CompanyController extends FOSRestController implements ClassResourceInterf
         if(is_null($company)){
             throw new HttpException(404, "Company $id not found.");
         }
-
-        $view = $this->view($company);
-        $context = new Context();
-        $context->setGroups(['Default', 'employees']);
-        $view->setContext($context);
-        $view->getContext()->enableMaxDepth();
+        $view = $this->getView($company, ['Default', 'employees']);
         return $this->handleView($view);
     }
 
@@ -42,11 +34,7 @@ class CompanyController extends FOSRestController implements ClassResourceInterf
         $companiesServices = $this->get('employees.companies_service');
         $averageAge = $companiesServices->getAverageAge($id);
 
-        $view = $this->view([ "averageAge" => $averageAge]);
-        $context = new Context();
-        $context->setGroups(['Default', 'employees']);
-        $view->setContext($context);
-        $view->getContext()->enableMaxDepth();
+        $view = $this->getView(["averageAge" => $averageAge], ['Default', 'employees']);
         return $this->handleView($view);
     }
 
@@ -54,11 +42,7 @@ class CompanyController extends FOSRestController implements ClassResourceInterf
         $companiesServices = $this->get('employees.companies_service');
         $employees = $companiesServices->getEmployees($id);
 
-        $view = $this->view($employees);
-        $context = new Context();
-        $context->setGroups(['Default']);
-        $view->setContext($context);
-        $view->getContext()->enableMaxDepth();
+        $view = $this->getView($employees, ['Default']);
         return $this->handleView($view);
     }
 
@@ -66,8 +50,23 @@ class CompanyController extends FOSRestController implements ClassResourceInterf
         $companiesServices = $this->get('employees.companies_service');
         $company = $companiesServices->create();
 
-        $view = $this->view($company);
+        $view = $this->getView($company);
         return $this->handleView($view);
+    }
+
+    private function getView($data, $groups = [], $enableMaxDepth = true){
+        $view = $this->view($data);
+        if(count($groups) > 0 || $enableMaxDepth){
+            $context = new Context();
+            if(count($groups) > 0){
+                $context->setGroups($groups);
+            }
+            $view->setContext($context);
+            if($enableMaxDepth){
+                $view->getContext()->enableMaxDepth();
+            }
+        }
+        return $view;
     }
 }
 

@@ -31,21 +31,21 @@ class CompaniesService extends FOSRestController implements ClassResourceInterfa
             ->where('d.companyId = :companyId')
             ->andWhere('d.active = true')
             ->setParameter('companyId', $id)
-            ->select('SUM(d.age)')
+            ->select('AVG(d.age)')
             ->getQuery()
         ;
-        $employees = $query->getSingleScalarResult();
+        $res = $query->getSingleScalarResult();
 
         $query = $designersRepository->createQueryBuilder('d')
             ->where('d.companyId = :companyId')
             ->andWhere('d.active = true')
             ->setParameter('companyId', $id)
-            ->select('SUM(d.age)')
+            ->select('AVG(d.age)')
             ->getQuery()
         ;
-        $employees2 = $query->getSingleScalarResult();
 
-        return $employees + $employees2;
+        $res += $query->getSingleScalarResult();
+        return ($res/2);
     }
 
     public function getEmployees($id){
