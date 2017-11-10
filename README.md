@@ -24,6 +24,57 @@ php bin/console doctrine:schema:update --force
 ```
 
 #### Run server
-```php
+```bash
 php bin/console server:start
 ```
+
+
+## Exercise Methods
+
+##### Add Employees
+* Add Developer
+    ```
+    POST: http://127.0.0.1:8000/api/employees/{companyId}/developers
+    ```
+    Json Body Properties:
+    * "name" : string
+    * "surname" : string
+    * "age" : integer
+    * "graphicDesigner" : boolean
+
+* Add Designer
+    ```
+    POST: http://127.0.0.1:8000/api/employees/{companyId}/designers
+    ```
+    Json Body Properties:
+    * "name" : string
+    * "surname" : string
+    * "age" : integer
+    * "programmingLanguageId" : integer (valid Id)
+
+##### Get Employees
+* Get Company *(Designers and Developers are divided for better usage)*
+    ```
+    GET: http://127.0.0.1:8000/api/companies/{companyId}
+    ```
+
+* Get All Employees Only *(In a future case, you can add a unique and independent number or code, for a better management of employees)*
+    ```
+    GET: http://127.0.0.1:8000/api/companies/{companyId}/employees
+    ```
+
+* Get Designer by Id
+    ```
+    GET: http://127.0.0.1:8000/api/employees/{designerId}/designer
+    ```
+
+* Get Developer by Id
+    ```
+    GET: http://127.0.0.1:8000/api/employees/{developerId}/developer
+    ```
+
+##### Get Average
+* Get the Average Age
+    ```
+    GET: http://127.0.0.1:8000/api/employees/{developerId}/developer
+    ```

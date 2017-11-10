@@ -43,9 +43,16 @@ class CompaniesService extends FOSRestController implements ClassResourceInterfa
             ->select('AVG(d.age)')
             ->getQuery()
         ;
+        $res2 = $query->getSingleScalarResult();
 
-        $res += $query->getSingleScalarResult();
-        return ($res/2);
+        //Salvamos el caso en el que no hay developers o designers relacionados a la empresa
+        if($res > 0 && $res2 > 0){
+            $res = ($res + $res2)/2;
+        }else{
+            $res += $res2;
+        }
+
+        return $res;
     }
 
     public function getEmployees($id){
