@@ -33,7 +33,8 @@ php bin/console server:start
 
 ##### Add Employees
 * Add Developer
-    ```
+
+    ```bash
     POST: http://127.0.0.1:8000/api/employees/{companyId}/developers
     ```
     Json Body Properties:
@@ -43,7 +44,8 @@ php bin/console server:start
     * "graphicDesigner" : boolean
 
 * Add Designer
-    ```
+
+    ```bash
     POST: http://127.0.0.1:8000/api/employees/{companyId}/designers
     ```
     Json Body Properties:
@@ -54,27 +56,32 @@ php bin/console server:start
 
 ##### Get Employees
 * Get Company *(Designers and Developers are divided for better usage)*
+
     ```
     GET: http://127.0.0.1:8000/api/companies/{companyId}
     ```
 
 * Get All Employees Only *(In a future case, you can add a unique and independent number or code, for a better management of employees)*
+
     ```
     GET: http://127.0.0.1:8000/api/companies/{companyId}/employees
     ```
 
 * Get Designer by Id
+
     ```
     GET: http://127.0.0.1:8000/api/employees/{designerId}/designer
     ```
 
 * Get Developer by Id
+
     ```
     GET: http://127.0.0.1:8000/api/employees/{developerId}/developer
     ```
 
 ##### Get Average
 * Get the Average Age
+
     ```
     GET: http://127.0.0.1:8000/api/employees/{developerId}/developer
     ```
@@ -89,4 +96,8 @@ Check `{projectDirectory}/extra` folder contents:
 
     Contains project related rest api endpoints and basic structure.
     **Download [Postman](https://www.getpostman.com/)**
+
+* `{projectDirectory}/docs`
+
+  Contains this same document converted to PDF.
 
