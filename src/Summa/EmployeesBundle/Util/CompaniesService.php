@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManager;
 use Summa\EmployeesBundle\Entity\Company;
 use Summa\EmployeesBundle\Entity\Designer;
 use Summa\EmployeesBundle\Entity\Developer;
+use Summa\EmployeesBundle\Entity\ProgrammingLanguage;
 
 class CompaniesService extends FOSRestController implements ClassResourceInterface {
 
@@ -38,19 +39,16 @@ class CompaniesService extends FOSRestController implements ClassResourceInterfa
         } else {
             throw new HttpException(422, "Name is missing.");
         }
-
         if($request->request->has('surname')){
             $surname = $request->request->get('surname');
         } else {
             throw new HttpException(422, "Surname is missing.");
         }
-
         if($request->request->has('age')){
             $age = $request->request->get('age');
         } else {
             throw new HttpException(422, "Age is missing.");
         }
-
         if($request->request->has('graphicDesigner')){
             $graphicDesigner = $request->request->get('graphicDesigner');
         } else {
@@ -58,8 +56,50 @@ class CompaniesService extends FOSRestController implements ClassResourceInterfa
         }
 
         $designer = $this->createDesigner($name, $surname, $age, $graphicDesigner, $company);
-
         return $designer;
+    }
+
+    public function addDeveloper($id){
+        $request = $this->requestStack->getCurrentRequest();
+
+        $company = $this->em->getRepository('EmployeesBundle:Company')->findOneBy([
+            'id' => $id,
+            'active' => true
+        ]);
+        if(is_null($company)){
+            throw new HttpException(404, "Company $id not found.");
+        }
+
+        if($request->request->has('name')){
+            $name = $request->request->get('name');
+        } else {
+            throw new HttpException(422, "Name is missing.");
+        }
+        if($request->request->has('surname')){
+            $surname = $request->request->get('surname');
+        } else {
+            throw new HttpException(422, "Surname is missing.");
+        }
+        if($request->request->has('age')){
+            $age = $request->request->get('age');
+        } else {
+            throw new HttpException(422, "Age is missing.");
+        }
+        if($request->request->has('programmingLanguageId')){
+            $programmingLanguageId = $request->request->get('programmingLanguageId');
+            $programmingLanguage = $this->em->getRepository('EmployeesBundle:ProgrammingLanguage')->findOneBy([
+                'id' => $programmingLanguageId,
+                'active' => true
+            ]);
+            if(is_null($programmingLanguage)){
+                throw new HttpException(404, "Language $programmingLanguageId not found.");
+            }
+        } else {
+            throw new HttpException(422, "LanguageId is missing.");
+        }
+
+        $developer = $this->createDeveloper($name, $surname, $age, $programmingLanguage, $company);
+        return $developer;
     }
 
     private function createDesigner($name, $surname, $age, $graphicDesigner, Company $company, $flush = true){
@@ -74,6 +114,20 @@ class CompaniesService extends FOSRestController implements ClassResourceInterfa
             $this->em->flush();
         }
         return $designer;
+    }
+
+    private function createDeveloper($name, $surname, $age, ProgrammingLanguage $programmingLanguage, Company $company, $flush = true){
+        $developer = new Developer();
+        $developer->setName($name);
+        $developer->setSurname($surname);
+        $developer->setAge($age);
+        $developer->setProgrammingLanguage($programmingLanguage);
+        $developer->setCompany($company);
+        $this->em->persist($developer);
+        if($flush){
+            $this->em->flush();
+        }
+        return $developer;
     }
 
     public function create(){

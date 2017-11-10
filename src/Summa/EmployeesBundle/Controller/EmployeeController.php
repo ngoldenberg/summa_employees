@@ -14,7 +14,7 @@ class EmployeeController extends FOSRestController implements ClassResourceInter
 
         $view = $this->view($employee);
         $context = new Context();
-        $context->setGroups(['Default']);
+        $context->setGroups(['Default', 'company']);
         $view->setContext($context);
         $view->getContext()->enableMaxDepth();
         return $this->handleView($view);
@@ -26,7 +26,7 @@ class EmployeeController extends FOSRestController implements ClassResourceInter
 
         $view = $this->view($employee);
         $context = new Context();
-        $context->setGroups(['Default']);
+        $context->setGroups(['Default', 'company']);
         $view->setContext($context);
         $view->getContext()->enableMaxDepth();
         return $this->handleView($view);

@@ -4,10 +4,8 @@ namespace Summa\EmployeesBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
+use FOS\RestBundle\Context\Context;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-
-use Summa\EmployeesBundle\Entity\Company;
 
 class CompanyController extends FOSRestController implements ClassResourceInterface{
 
@@ -16,6 +14,10 @@ class CompanyController extends FOSRestController implements ClassResourceInterf
             'active' => true
         ]);
         $view = $this->view($companies);
+        $context = new Context();
+        $context->setGroups(['Default', 'employees']);
+        $view->setContext($context);
+        $view->getContext()->enableMaxDepth();
         return $this->handleView($view);
     }
 
@@ -29,6 +31,10 @@ class CompanyController extends FOSRestController implements ClassResourceInterf
         }
 
         $view = $this->view($company);
+        $context = new Context();
+        $context->setGroups(['Default', 'employees']);
+        $view->setContext($context);
+        $view->getContext()->enableMaxDepth();
         return $this->handleView($view);
     }
 

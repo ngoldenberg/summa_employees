@@ -51,6 +51,7 @@ class Designer
     /**
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="designers")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     * @JMS\Groups({"company"})
      */
     private $company;
 

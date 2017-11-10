@@ -58,6 +58,7 @@ class Developer
     /**
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="developers")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     * @JMS\Groups({"company"})
      */
     private $company;
 
