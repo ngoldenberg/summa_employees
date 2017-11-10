@@ -16,7 +16,7 @@ See [here](http://symfony.com/doc/current/index.html) for Symfony docs.
 `curl -sS https://getcomposer.org/installer | php`
 5. Run composer.
 `php composer.phar install -vvv`
-6. Composer will ask for database connection info (will save to /app/config/parameters.yml). For null answers, just press enter (cof cof mailing stuff cof cof).
+6. Composer will ask for database connection info (will save to /app/config/parameters.yml). For null answers, just press enter.
 
 #### Sync database structure
 ``` bash
@@ -37,22 +37,24 @@ php bin/console server:start
     ```bash
     POST: http://127.0.0.1:8000/api/employees/{companyId}/developers
     ```
+
     Json Body Properties:
     * "name" : string
     * "surname" : string
     * "age" : integer
-    * "graphicDesigner" : boolean
+    * "programmingLanguageId" : integer (valid Id)
 
 * Add Designer
 
     ```bash
     POST: http://127.0.0.1:8000/api/employees/{companyId}/designers
     ```
+
     Json Body Properties:
     * "name" : string
     * "surname" : string
     * "age" : integer
-    * "programmingLanguageId" : integer (valid Id)
+    * "graphicDesigner" : boolean
 
 ##### Get Employees
 * Get Company *(Designers and Developers are divided for better usage)*
@@ -83,7 +85,7 @@ php bin/console server:start
 * Get the Average Age
 
     ```
-    GET: http://127.0.0.1:8000/api/employees/{developerId}/developer
+    GET: http://127.0.0.1:8000/api/employees/{developerId}/average
     ```
 
 ## Extra
