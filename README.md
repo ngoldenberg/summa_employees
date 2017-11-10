@@ -78,3 +78,15 @@ php bin/console server:start
     ```
     GET: http://127.0.0.1:8000/api/employees/{developerId}/developer
     ```
+
+## Extra
+Check `{projectDirectory}/extra` folder contents:
+* `{projectDirectory}/extra/dumps`
+    * `structure` : contains all create/alter table queries (also achievable via Doctrine CLI)
+    * `data` : contains defaults programming languages inserts queries
+
+* `{projectDirectory}/postman_collection`
+
+    Contains project related rest api endpoints and basic structure.
+    **Download [Postman](https://www.getpostman.com/)**
+
