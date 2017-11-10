@@ -1,7 +1,3 @@
-#app:
-#    resource: '@AppBundle/Controller/'
-#    type: annotation
-
 employees:
     resource: "@EmployeesBundle/Resources/config/routing.yml"
     prefix:   /api

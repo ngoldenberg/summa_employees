@@ -52,6 +52,11 @@ class Designer
     private $company;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active = true;
+
+    /**
      * Get id
      *
      * @return integer
@@ -203,5 +208,29 @@ class Designer
     public function getCompany()
     {
         return $this->company;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return Designer
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
     }
 }

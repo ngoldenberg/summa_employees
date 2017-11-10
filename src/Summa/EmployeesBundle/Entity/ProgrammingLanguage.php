@@ -24,6 +24,11 @@ class ProgrammingLanguage
     private $title;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active = true;
+
+    /**
      * Get id
      *
      * @return integer
@@ -55,5 +60,29 @@ class ProgrammingLanguage
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return ProgrammingLanguage
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
     }
 }

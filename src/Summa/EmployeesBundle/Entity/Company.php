@@ -34,6 +34,11 @@ class Company
      */
     private $designers;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active = true;
+
     public function __construct() {
         $this->developers = new Collection();
         $this->designers = new Collection();
@@ -139,5 +144,29 @@ class Company
     public function getDesigners()
     {
         return $this->designers;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return Company
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
     }
 }

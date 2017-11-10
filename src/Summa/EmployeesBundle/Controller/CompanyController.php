@@ -12,17 +12,13 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class CompanyController extends FOSRestController implements ClassResourceInterface{
 
     public function cgetAction(){
-//        $em = $this->getDoctrine()->getManager();
-//        $paginationToolsService = $this->get('aom_api.pagination_tools_service');
-//
-//        $queryBuilder = $em->createQueryBuilder()
-//            ->select('c')
-//            ->from('AomApiBundle:Country', 'c');
-//        $query = $queryBuilder->getQuery();
-//        $result = $query->getResult();
+
+        $companiesService = $this->get('employees.companies_service');
+
+        $res = $companiesService->create();
+
         $view = $this->view([
-            "status" => "ok",
-            "res" => "420 qasadasd"
+            "status" => $res
         ]);
         return $this->handleView($view);
     }
