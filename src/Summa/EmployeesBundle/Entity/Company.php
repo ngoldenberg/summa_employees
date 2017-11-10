@@ -34,12 +34,10 @@ class Company
      */
     private $designers;
 
-
     public function __construct() {
         $this->developers = new Collection();
         $this->designers = new Collection();
     }
-
 
     /**
      * Get id

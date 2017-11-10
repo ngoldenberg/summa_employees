@@ -51,7 +51,6 @@ class Designer
      */
     private $company;
 
-
     /**
      * Get id
      *

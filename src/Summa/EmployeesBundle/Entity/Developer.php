@@ -56,7 +56,6 @@ class Developer
      */
     private $company;
 
-
     /**
      * Get id
      *

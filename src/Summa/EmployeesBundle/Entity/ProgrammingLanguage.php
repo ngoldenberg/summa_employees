@@ -23,7 +23,6 @@ class ProgrammingLanguage
      */
     private $title;
 
-
     /**
      * Get id
      *
