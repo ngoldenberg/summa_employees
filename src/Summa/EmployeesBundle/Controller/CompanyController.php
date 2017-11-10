@@ -38,6 +38,32 @@ class CompanyController extends FOSRestController implements ClassResourceInterf
         return $this->handleView($view);
     }
 
+    public function getAverageAction($id){
+        $companiesServices = $this->get('employees.companies_service');
+        $averageAge = $companiesServices->getAverageAge($id);
+
+        $view = $this->view([ "averageAge" => $averageAge]);
+        $context = new Context();
+        $context->setGroups(['Default', 'employees']);
+        $view->setContext($context);
+        $view->getContext()->enableMaxDepth();
+        return $this->handleView($view);
+    }
+
+
+    public function getEmployeesAction($id){
+        $companiesServices = $this->get('employees.companies_service');
+        $employees = $companiesServices->getEmployees($id);
+
+        $view = $this->view($employees);
+        $context = new Context();
+        $context->setGroups(['Default']);
+        $view->setContext($context);
+        $view->getContext()->enableMaxDepth();
+        return $this->handleView($view);
+    }
+
+
     public function postAction(){
         $companiesServices = $this->get('employees.companies_service');
         $company = $companiesServices->create();

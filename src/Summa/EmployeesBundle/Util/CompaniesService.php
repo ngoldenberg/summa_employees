@@ -23,6 +23,57 @@ class CompaniesService extends FOSRestController implements ClassResourceInterfa
         $this->requestStack = $requestStack;
     }
 
+    public function getAverageAge($id){
+        $developersRepository = $this->em->getRepository('EmployeesBundle:Developer');
+        $designersRepository = $this->em->getRepository('EmployeesBundle:Designer');
+
+        $query = $developersRepository->createQueryBuilder('d')
+            ->where('d.companyId = :companyId')
+            ->andWhere('d.active = true')
+            ->setParameter('companyId', $id)
+            ->select('SUM(d.age)')
+            ->getQuery()
+        ;
+        $employees = $query->getSingleScalarResult();
+
+        $query = $designersRepository->createQueryBuilder('d')
+            ->where('d.companyId = :companyId')
+            ->andWhere('d.active = true')
+            ->setParameter('companyId', $id)
+            ->select('SUM(d.age)')
+            ->getQuery()
+        ;
+        $employees2 = $query->getSingleScalarResult();
+
+        return $employees + $employees2;
+    }
+
+    public function getEmployees($id){
+        $developersRepository = $this->em->getRepository('EmployeesBundle:Developer');
+        $designersRepository = $this->em->getRepository('EmployeesBundle:Designer');
+
+        $query = $developersRepository->createQueryBuilder('d')
+            ->where('d.companyId = :companyId')
+            ->andWhere('d.active = true')
+            ->setParameter('companyId', $id)
+            ->getQuery()
+        ;
+        $employees = $query->getArrayResult();
+
+        $query = $designersRepository->createQueryBuilder('d')
+            ->where('d.companyId = :companyId')
+            ->andWhere('d.active = true')
+            ->setParameter('companyId', $id)
+            ->getQuery()
+        ;
+        $employees2 = $query->getArrayResult();
+
+        foreach ($employees2 as $employee){
+            $employees[] = $employee;
+        }
+        return $employees;
+    }
+
     public function addDesigner($id){
         $request = $this->requestStack->getCurrentRequest();
 
@@ -146,6 +197,5 @@ class CompaniesService extends FOSRestController implements ClassResourceInterfa
 
         return $company;
     }
-
 
 }
