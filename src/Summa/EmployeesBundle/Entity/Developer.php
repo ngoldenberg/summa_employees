@@ -36,17 +36,22 @@ class Developer
 
     /**
      * @ORM\Column(type="integer")
+     * @JMS\SerializedName("programmingLanguageId")
+     * @JMS\Groups({"ids"})
      */
     private $programmingLanguageId;
 
     /**
      * @ORM\ManyToOne(targetEntity="ProgrammingLanguage")
      * @ORM\JoinColumn(name="programming_language_id", referencedColumnName="id")
+     * @JMS\SerializedName("programmingLanguage")
      */
     private $programmingLanguage;
 
     /**
      * @ORM\Column(type="integer")
+     * @JMS\SerializedName("companyId")
+     * @JMS\Groups({"ids"})
      */
     private $companyId;
 

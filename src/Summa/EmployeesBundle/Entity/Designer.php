@@ -37,11 +37,14 @@ class Designer
 
     /**
      * @ORM\Column(type="boolean")
+     * @JMS\SerializedName("graphicDesigner")
      */
     private $graphicDesigner;
 
     /**
      * @ORM\Column(type="integer")
+     * @JMS\SerializedName("companyId")
+     * @JMS\Groups({"ids"})
      */
     private $companyId;
 

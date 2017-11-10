@@ -21,16 +21,19 @@ class Company
 
     /**
      * @ORM\Column(type="string", length=250)
+     * @JMS\SerializedName("businessName")
      */
     private $businessName;
 
     /**
      * @ORM\OneToMany(targetEntity="Developer", mappedBy="company")
+     * @JMS\Groups({"employees"})
      */
     private $developers;
 
     /**
      * @ORM\OneToMany(targetEntity="Designer", mappedBy="company")
+     * @JMS\Groups({"employees"})
      */
     private $designers;
 
