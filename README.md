@@ -3,8 +3,7 @@ Summa Employees
 
 A Symfony project created on November 9, 2017, 11:37 pm.
 
-
-See [here](http://symfony.com/doc/3.1/index.html) for Symfony docs.
+See [here](http://symfony.com/doc/current/index.html) for Symfony docs.
 
 
 ### General Project Related
@@ -20,7 +19,11 @@ See [here](http://symfony.com/doc/3.1/index.html) for Symfony docs.
 6. Composer will ask for database connection info (will save to /app/config/parameters.yml). For null answers, just press enter (cof cof mailing stuff cof cof).
 
 #### Sync database structure
-Run `php bin/console doctrine:schema:update --force`
+``` bash
+php bin/console doctrine:schema:update --force
+```
 
 #### Run server
-Run `php bin/console server:start`
+```php
+php bin/console server:start
+```
