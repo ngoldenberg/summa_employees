@@ -50,7 +50,6 @@ class CompanyController extends FOSRestController implements ClassResourceInterf
         return $this->handleView($view);
     }
 
-
     public function getEmployeesAction($id){
         $companiesServices = $this->get('employees.companies_service');
         $employees = $companiesServices->getEmployees($id);
@@ -62,7 +61,6 @@ class CompanyController extends FOSRestController implements ClassResourceInterf
         $view->getContext()->enableMaxDepth();
         return $this->handleView($view);
     }
-
 
     public function postAction(){
         $companiesServices = $this->get('employees.companies_service');
