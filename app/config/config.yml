@@ -67,7 +67,7 @@ nelmio_cors:
     defaults:
         allow_credentials: true
         allow_origin: ['*']
-        allow_headers: ['Access-Control-Allow-Origin', 'Origin',  'Content-Type', 'Accept', 'Authorization', 'content-description']
+        allow_headers: ['*']
         allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
         expose_headers: ['*']
         max_age: 3600
@@ -76,7 +76,7 @@ nelmio_cors:
             allow_credentials: true
             origin_regex: true
             allow_origin: ['*']
-            allow_headers: ['Access-Control-Allow-Origin', 'Origin',  'Content-Type', 'Accept', 'Authorization', 'content-description']
+            allow_headers: ['*']
             allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
             expose_headers: ['*']
             max_age: 3600
