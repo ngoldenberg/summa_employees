@@ -26,16 +26,10 @@ class Company
     private $businessName;
 
     /**
-     * @ORM\OneToMany(targetEntity="Developer", mappedBy="company")
+     * @ORM\OneToMany(targetEntity="Employee", mappedBy="company")
      * @JMS\Groups({"employees"})
      */
-    private $developers;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Designer", mappedBy="company")
-     * @JMS\Groups({"employees"})
-     */
-    private $designers;
+    private $employees;
 
     /**
      * @ORM\Column(type="boolean")
@@ -43,8 +37,6 @@ class Company
     private $active = true;
 
     public function __construct() {
-        $this->developers = new Collection();
-        $this->designers = new Collection();
     }
 
     /**
@@ -82,74 +74,6 @@ class Company
     }
 
     /**
-     * Add developer
-     *
-     * @param \Summa\EmployeesBundle\Entity\Developer $developer
-     *
-     * @return Company
-     */
-    public function addDeveloper(\Summa\EmployeesBundle\Entity\Developer $developer)
-    {
-        $this->developers[] = $developer;
-
-        return $this;
-    }
-
-    /**
-     * Remove developer
-     *
-     * @param \Summa\EmployeesBundle\Entity\Developer $developer
-     */
-    public function removeDeveloper(\Summa\EmployeesBundle\Entity\Developer $developer)
-    {
-        $this->developers->removeElement($developer);
-    }
-
-    /**
-     * Get developers
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDevelopers()
-    {
-        return $this->developers;
-    }
-
-    /**
-     * Add designer
-     *
-     * @param \Summa\EmployeesBundle\Entity\Designer $designer
-     *
-     * @return Company
-     */
-    public function addDesigner(\Summa\EmployeesBundle\Entity\Designer $designer)
-    {
-        $this->designers[] = $designer;
-
-        return $this;
-    }
-
-    /**
-     * Remove designer
-     *
-     * @param \Summa\EmployeesBundle\Entity\Designer $designer
-     */
-    public function removeDesigner(\Summa\EmployeesBundle\Entity\Designer $designer)
-    {
-        $this->designers->removeElement($designer);
-    }
-
-    /**
-     * Get designers
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDesigners()
-    {
-        return $this->designers;
-    }
-
-    /**
      * Set active
      *
      * @param boolean $active
@@ -171,5 +95,39 @@ class Company
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Add employee
+     *
+     * @param \Summa\EmployeesBundle\Entity\Employee $employee
+     *
+     * @return Company
+     */
+    public function addEmployee(\Summa\EmployeesBundle\Entity\Employee $employee)
+    {
+        $this->employees[] = $employee;
+
+        return $this;
+    }
+
+    /**
+     * Remove employee
+     *
+     * @param \Summa\EmployeesBundle\Entity\Employee $employee
+     */
+    public function removeEmployee(\Summa\EmployeesBundle\Entity\Employee $employee)
+    {
+        $this->employees->removeElement($employee);
+    }
+
+    /**
+     * Get employees
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEmployees()
+    {
+        return $this->employees;
     }
 }

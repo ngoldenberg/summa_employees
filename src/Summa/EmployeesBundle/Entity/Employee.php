@@ -7,11 +7,17 @@ use JMS\Serializer\Annotation as JMS;
 use Summa\EmployeesBundle\Entity\Company;
 
 
+///**
+// * @ORM\Table("employees")
+// * @ORM\Entity
+// */
 /**
- * @ORM\Table("employees")
  * @ORM\Entity
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="typeId", type="integer")
+ * @ORM\DiscriminatorMap({"1" = "Designer", "2" = "Developer"})
  */
-class Employee
+abstract class Employee
 {
     /**
      * @ORM\Id
@@ -57,7 +63,7 @@ class Employee
     private $companyId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Company", inversedBy="designers")
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="employees")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      * @JMS\Groups({"company"})
      */
