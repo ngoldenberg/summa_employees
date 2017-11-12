@@ -5,10 +5,10 @@ namespace Summa\EmployeesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table("programming_languages")
+ * @ORM\Table("employee_types")
  * @ORM\Entity
  */
-class ProgrammingLanguage
+class EmployeeType
 {
     /**
      * @ORM\Id
@@ -27,6 +27,7 @@ class ProgrammingLanguage
      */
     private $active = true;
 
+
     /**
      * Get id
      *
@@ -42,7 +43,7 @@ class ProgrammingLanguage
      *
      * @param string $title
      *
-     * @return ProgrammingLanguage
+     * @return EmployeeType
      */
     public function setTitle($title)
     {
@@ -66,7 +67,7 @@ class ProgrammingLanguage
      *
      * @param boolean $active
      *
-     * @return ProgrammingLanguage
+     * @return EmployeeType
      */
     public function setActive($active)
     {

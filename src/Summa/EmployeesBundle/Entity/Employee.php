@@ -6,11 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Summa\EmployeesBundle\Entity\Company;
 
+
 /**
- * @ORM\Table("developers")
+ * @ORM\Table("employees")
  * @ORM\Entity
  */
-class Developer
+class Employee
 {
     /**
      * @ORM\Id
@@ -36,17 +37,17 @@ class Developer
 
     /**
      * @ORM\Column(type="integer")
-     * @JMS\SerializedName("programmingLanguageId")
+     * @JMS\SerializedName("typeId")
      * @JMS\Groups({"ids"})
      */
-    private $programmingLanguageId;
+    private $typeId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProgrammingLanguage")
-     * @ORM\JoinColumn(name="programming_language_id", referencedColumnName="id")
-     * @JMS\SerializedName("programmingLanguage")
+     * @ORM\ManyToOne(targetEntity="EmployeeType")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      */
-    private $programmingLanguage;
+    private $type;
+
 
     /**
      * @ORM\Column(type="integer")
@@ -56,7 +57,7 @@ class Developer
     private $companyId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Company", inversedBy="developers")
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="designers")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      * @JMS\Groups({"company"})
      */
@@ -66,6 +67,7 @@ class Developer
      * @ORM\Column(type="boolean")
      */
     private $active = true;
+
 
     /**
      * Get id
@@ -82,7 +84,7 @@ class Developer
      *
      * @param string $name
      *
-     * @return Developer
+     * @return Employee
      */
     public function setName($name)
     {
@@ -106,7 +108,7 @@ class Developer
      *
      * @param string $surname
      *
-     * @return Developer
+     * @return Employee
      */
     public function setSurname($surname)
     {
@@ -130,7 +132,7 @@ class Developer
      *
      * @param integer $age
      *
-     * @return Developer
+     * @return Employee
      */
     public function setAge($age)
     {
@@ -150,27 +152,27 @@ class Developer
     }
 
     /**
-     * Set programmingLanguageId
+     * Set typeId
      *
-     * @param integer $programmingLanguageId
+     * @param integer $typeId
      *
-     * @return Developer
+     * @return Employee
      */
-    public function setProgrammingLanguageId($programmingLanguageId)
+    public function setTypeId($typeId)
     {
-        $this->programmingLanguageId = $programmingLanguageId;
+        $this->typeId = $typeId;
 
         return $this;
     }
 
     /**
-     * Get programmingLanguageId
+     * Get typeId
      *
      * @return integer
      */
-    public function getProgrammingLanguageId()
+    public function getTypeId()
     {
-        return $this->programmingLanguageId;
+        return $this->typeId;
     }
 
     /**
@@ -178,7 +180,7 @@ class Developer
      *
      * @param integer $companyId
      *
-     * @return Developer
+     * @return Employee
      */
     public function setCompanyId($companyId)
     {
@@ -198,59 +200,11 @@ class Developer
     }
 
     /**
-     * Set programmingLanguage
-     *
-     * @param \Summa\EmployeesBundle\Entity\ProgrammingLanguage $programmingLanguage
-     *
-     * @return Developer
-     */
-    public function setProgrammingLanguage(\Summa\EmployeesBundle\Entity\ProgrammingLanguage $programmingLanguage = null)
-    {
-        $this->programmingLanguage = $programmingLanguage;
-
-        return $this;
-    }
-
-    /**
-     * Get programmingLanguage
-     *
-     * @return \Summa\EmployeesBundle\Entity\ProgrammingLanguage
-     */
-    public function getProgrammingLanguage()
-    {
-        return $this->programmingLanguage;
-    }
-
-    /**
-     * Set company
-     *
-     * @param \Summa\EmployeesBundle\Entity\Company $company
-     *
-     * @return Developer
-     */
-    public function setCompany(\Summa\EmployeesBundle\Entity\Company $company = null)
-    {
-        $this->company = $company;
-
-        return $this;
-    }
-
-    /**
-     * Get company
-     *
-     * @return \Summa\EmployeesBundle\Entity\Company
-     */
-    public function getCompany()
-    {
-        return $this->company;
-    }
-
-    /**
      * Set active
      *
      * @param boolean $active
      *
-     * @return Developer
+     * @return Employee
      */
     public function setActive($active)
     {
@@ -267,5 +221,53 @@ class Developer
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \Summa\EmployeesBundle\Entity\EmployeeType $type
+     *
+     * @return Employee
+     */
+    public function setType(\Summa\EmployeesBundle\Entity\EmployeeType $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \Summa\EmployeesBundle\Entity\EmployeeType
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set company
+     *
+     * @param \Summa\EmployeesBundle\Entity\Company $company
+     *
+     * @return Employee
+     */
+    public function setCompany(\Summa\EmployeesBundle\Entity\Company $company = null)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return \Summa\EmployeesBundle\Entity\Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
     }
 }

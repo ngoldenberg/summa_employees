@@ -21,16 +21,19 @@ class Company
 
     /**
      * @ORM\Column(type="string", length=250)
+     * @JMS\SerializedName("businessName")
      */
     private $businessName;
 
     /**
      * @ORM\OneToMany(targetEntity="Developer", mappedBy="company")
+     * @JMS\Groups({"employees"})
      */
     private $developers;
 
     /**
      * @ORM\OneToMany(targetEntity="Designer", mappedBy="company")
+     * @JMS\Groups({"employees"})
      */
     private $designers;
 
@@ -144,5 +147,29 @@ class Company
     public function getDesigners()
     {
         return $this->designers;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return Company
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
     }
 }
