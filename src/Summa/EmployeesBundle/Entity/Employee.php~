@@ -14,8 +14,8 @@ use Summa\EmployeesBundle\Entity\Company;
 /**
  * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="typeId", type="integer")
- * @ORM\DiscriminatorMap({"1" = "Designer", "2" = "Developer"})
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({"designer" = "Designer", "developer" = "Developer"})
  */
 abstract class Employee
 {
@@ -40,20 +40,6 @@ abstract class Employee
      * @ORM\Column(type="integer")
      */
     private $age;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @JMS\SerializedName("typeId")
-     * @JMS\Groups({"ids"})
-     */
-    private $typeId;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="EmployeeType")
-     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
-     */
-    private $type;
-
 
     /**
      * @ORM\Column(type="integer")

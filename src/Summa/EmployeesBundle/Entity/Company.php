@@ -36,7 +36,12 @@ class Company
      */
     private $active = true;
 
-    public function __construct() {
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->employees = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

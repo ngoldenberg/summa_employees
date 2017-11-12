@@ -35,6 +35,14 @@ class EmployeeController extends FOSRestController implements ClassResourceInter
         return $this->handleView($view);
     }
 
+    public function postAction($id){
+        $companiesServices = $this->get('employees.companies_service');
+        $employee = $companiesServices->addEmployee($id);
+
+        $view = $this->getView($employee, ['Default', 'company']);
+        return $this->handleView($view);
+    }
+
     public function postDesignerAction($id){
         $companiesServices = $this->get('employees.companies_service');
         $employee = $companiesServices->addDesigner($id);
