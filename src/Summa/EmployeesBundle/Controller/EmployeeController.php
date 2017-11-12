@@ -9,51 +9,22 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class EmployeeController extends FOSRestController implements ClassResourceInterface{
 
-    public function getDesignerAction($id){
-        $designer = $this->getDoctrine()->getRepository('EmployeesBundle:Designer')->findOneBy([
+    public function getAction($id){
+        $employee = $this->getDoctrine()->getRepository('EmployeesBundle:Employee')->findOneBy([
             'id' => $id,
             'active' => true
         ]);
-        if(is_null($designer)){
-            throw new HttpException(404, "Designer $id not found.");
+        if(is_null($employee)){
+            throw new HttpException(404, "Employee $id not found.");
         }
 
-        $view = $this->getView($designer, ['Default']);
-        return $this->handleView($view);
-    }
-
-    public function getDeveloperAction($id){
-        $developer = $this->getDoctrine()->getRepository('EmployeesBundle:Developer')->findOneBy([
-            'id' => $id,
-            'active' => true
-        ]);
-        if(is_null($developer)){
-            throw new HttpException(404, "Developer $id not found.");
-        }
-
-        $view = $this->getView($developer, ['Default']);
+        $view = $this->getView($employee, ['Default']);
         return $this->handleView($view);
     }
 
     public function postAction($id){
         $companiesServices = $this->get('employees.companies_service');
         $employee = $companiesServices->addEmployee($id);
-
-        $view = $this->getView($employee, ['Default', 'company']);
-        return $this->handleView($view);
-    }
-
-    public function postDesignerAction($id){
-        $companiesServices = $this->get('employees.companies_service');
-        $employee = $companiesServices->addDesigner($id);
-
-        $view = $this->getView($employee, ['Default', 'company']);
-        return $this->handleView($view);
-    }
-
-    public function postDeveloperAction($id){
-        $companiesServices = $this->get('employees.companies_service');
-        $employee = $companiesServices->addDeveloper($id);
 
         $view = $this->getView($employee, ['Default', 'company']);
         return $this->handleView($view);

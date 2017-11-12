@@ -25,61 +25,35 @@ class CompaniesService extends FOSRestController implements ClassResourceInterfa
     }
 
     public function getAverageAge($id){
-        $developersRepository = $this->em->getRepository('EmployeesBundle:Developer');
-        $designersRepository = $this->em->getRepository('EmployeesBundle:Designer');
-
-        $query = $developersRepository->createQueryBuilder('d')
-            ->where('d.companyId = :companyId')
-            ->andWhere('d.active = true')
-            ->setParameter('companyId', $id)
-            ->select('AVG(d.age)')
-            ->getQuery()
-        ;
-        $res = $query->getSingleScalarResult();
-
-        $query = $designersRepository->createQueryBuilder('d')
-            ->where('d.companyId = :companyId')
-            ->andWhere('d.active = true')
-            ->setParameter('companyId', $id)
-            ->select('AVG(d.age)')
-            ->getQuery()
-        ;
-        $res2 = $query->getSingleScalarResult();
-
-        //Salvamos el caso en el que no hay developers o designers relacionados a la empresa
-        if($res > 0 && $res2 > 0){
-            $res = ($res + $res2)/2;
-        }else{
-            $res += $res2;
-        }
-
-        return $res;
-    }
-
-    public function getEmployees($id){
-        $developersRepository = $this->em->getRepository('EmployeesBundle:Developer');
-        $designersRepository = $this->em->getRepository('EmployeesBundle:Designer');
-
-        $query = $developersRepository->createQueryBuilder('d')
-            ->where('d.companyId = :companyId')
-            ->andWhere('d.active = true')
-            ->setParameter('companyId', $id)
-            ->getQuery()
-        ;
-        $employees = $query->getArrayResult();
-
-        $query = $designersRepository->createQueryBuilder('d')
-            ->where('d.companyId = :companyId')
-            ->andWhere('d.active = true')
-            ->setParameter('companyId', $id)
-            ->getQuery()
-        ;
-        $employees2 = $query->getArrayResult();
-
-        foreach ($employees2 as $employee){
-            $employees[] = $employee;
-        }
-        return $employees;
+//        $developersRepository = $this->em->getRepository('EmployeesBundle:Developer');
+//        $designersRepository = $this->em->getRepository('EmployeesBundle:Designer');
+//
+//        $query = $developersRepository->createQueryBuilder('d')
+//            ->where('d.companyId = :companyId')
+//            ->andWhere('d.active = true')
+//            ->setParameter('companyId', $id)
+//            ->select('AVG(d.age)')
+//            ->getQuery()
+//        ;
+//        $res = $query->getSingleScalarResult();
+//
+//        $query = $designersRepository->createQueryBuilder('d')
+//            ->where('d.companyId = :companyId')
+//            ->andWhere('d.active = true')
+//            ->setParameter('companyId', $id)
+//            ->select('AVG(d.age)')
+//            ->getQuery()
+//        ;
+//        $res2 = $query->getSingleScalarResult();
+//
+//        //Salvamos el caso en el que no hay developers o designers relacionados a la empresa
+//        if($res > 0 && $res2 > 0){
+//            $res = ($res + $res2)/2;
+//        }else{
+//            $res += $res2;
+//        }
+//
+//        return $res;
     }
 
     public function addEmployee($id){

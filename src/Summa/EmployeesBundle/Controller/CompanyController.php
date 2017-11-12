@@ -39,10 +39,11 @@ class CompanyController extends FOSRestController implements ClassResourceInterf
     }
 
     public function getEmployeesAction($id){
-        $companiesServices = $this->get('employees.companies_service');
-        $employees = $companiesServices->getEmployees($id);
-
-        $view = $this->getView($employees, ['Default']);
+        $company = $this->getDoctrine()->getRepository('EmployeesBundle:Company')->findOneBy([
+            'id' => $id,
+            'active' => true
+        ]);
+        $view = $this->getView($company->getEmployees(), ['Default']);
         return $this->handleView($view);
     }
 
