@@ -4,6 +4,7 @@ namespace Summa\EmployeesBundle\Util;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use Symfony\Bridge\Doctrine\Tests\Fixtures\Employee;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Doctrine\ORM\EntityManager;
@@ -81,7 +82,7 @@ class CompaniesService extends FOSRestController implements ClassResourceInterfa
         return $employees;
     }
 
-    public function addDesigner($id){
+    public function addEmployee($id){
         $request = $this->requestStack->getCurrentRequest();
 
         $company = $this->em->getRepository('EmployeesBundle:Company')->findOneBy([
@@ -107,57 +108,38 @@ class CompaniesService extends FOSRestController implements ClassResourceInterfa
         } else {
             throw new HttpException(422, "Age is missing.");
         }
-        if($request->request->has('graphicDesigner')){
-            $graphicDesigner = $request->request->get('graphicDesigner');
+        if($request->request->has('type')){
+            $type = $request->request->get('type');
         } else {
-            throw new HttpException(422, "GraphicDesigner is missing.");
+            throw new HttpException(422, "Type is missing.");
         }
 
-        $designer = $this->createDesigner($name, $surname, $age, $graphicDesigner, $company);
-        return $designer;
-    }
-
-    public function addDeveloper($id){
-        $request = $this->requestStack->getCurrentRequest();
-
-        $company = $this->em->getRepository('EmployeesBundle:Company')->findOneBy([
-            'id' => $id,
-            'active' => true
-        ]);
-        if(is_null($company)){
-            throw new HttpException(404, "Company $id not found.");
-        }
-
-        if($request->request->has('name')){
-            $name = $request->request->get('name');
-        } else {
-            throw new HttpException(422, "Name is missing.");
-        }
-        if($request->request->has('surname')){
-            $surname = $request->request->get('surname');
-        } else {
-            throw new HttpException(422, "Surname is missing.");
-        }
-        if($request->request->has('age')){
-            $age = $request->request->get('age');
-        } else {
-            throw new HttpException(422, "Age is missing.");
-        }
-        if($request->request->has('programmingLanguageId')){
-            $programmingLanguageId = $request->request->get('programmingLanguageId');
-            $programmingLanguage = $this->em->getRepository('EmployeesBundle:ProgrammingLanguage')->findOneBy([
-                'id' => $programmingLanguageId,
-                'active' => true
-            ]);
-            if(is_null($programmingLanguage)){
-                throw new HttpException(404, "Language $programmingLanguageId not found.");
+        if($type == 'designer'){
+            if($request->request->has('graphicDesigner')){
+                $graphicDesigner = $request->request->get('graphicDesigner');
+            } else {
+                throw new HttpException(422, "GraphicDesigner is missing.");
             }
-        } else {
-            throw new HttpException(422, "LanguageId is missing.");
+            $employee = $this->createDesigner($name, $surname, $age, $graphicDesigner, $company);
+        }elseif ($type == 'developer'){
+            if($request->request->has('programmingLanguageId')){
+                $programmingLanguageId = $request->request->get('programmingLanguageId');
+                $programmingLanguage = $this->em->getRepository('EmployeesBundle:ProgrammingLanguage')->findOneBy([
+                    'id' => $programmingLanguageId,
+                    'active' => true
+                ]);
+                if(is_null($programmingLanguage)){
+                    throw new HttpException(404, "ProgrammingLanguage $programmingLanguageId not found.");
+                }
+            } else {
+                throw new HttpException(422, "ProgrammingLanguageId is missing.");
+            }
+            $employee = $this->createDeveloper($name, $surname, $age, $programmingLanguage, $company);
+        }else{
+            throw new HttpException(422, "Type not valid.");
         }
 
-        $developer = $this->createDeveloper($name, $surname, $age, $programmingLanguage, $company);
-        return $developer;
+        return $employee;
     }
 
     private function createDesigner($name, $surname, $age, $graphicDesigner, Company $company, $flush = true){
