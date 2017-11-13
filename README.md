@@ -32,53 +32,55 @@ php bin/console server:start
 ## Exercise Methods
 
 ##### Add Employees
+
+
 * Add Developer
 
-    ```bash
-    POST: http://127.0.0.1:8000/api/employees/{companyId}/developers
+    ```
+    POST: http://127.0.0.1:8000/api/employees/{companyId}
     ```
 
     Json Body Properties:
     * "name" : string
     * "surname" : string
     * "age" : integer
+    * "type" : string*
     * "programmingLanguageId" : integer (valid Id)
+    
+*\* Options: ["developer", "designer"].*
+
 
 * Add Designer
 
-    ```bash
-    POST: http://127.0.0.1:8000/api/employees/{companyId}/designers
+    ```
+    POST: http://127.0.0.1:8000/api/employees/{companyId}
     ```
 
     Json Body Properties:
     * "name" : string
     * "surname" : string
     * "age" : integer
+    * "type" : string*
     * "graphicDesigner" : boolean
 
-##### Get Employees
-* Get Company *(Designers and Developers are divided for better usage)*
+*\* Options: ["developer", "designer"].*
 
+##### Get Employees
+* Get Company 
     ```
     GET: http://127.0.0.1:8000/api/companies/{companyId}
     ```
 
-* Get All Employees Only *(In a future case, you can add a unique and independent number or code, for a better management of employees)*
+* Get All Employees
 
     ```
     GET: http://127.0.0.1:8000/api/companies/{companyId}/employees
     ```
 
-* Get Designer by Id
+* Get Employee by Id
 
     ```
-    GET: http://127.0.0.1:8000/api/employees/{designerId}/designer
-    ```
-
-* Get Developer by Id
-
-    ```
-    GET: http://127.0.0.1:8000/api/employees/{developerId}/developer
+    GET: http://127.0.0.1:8000/api/employees/{employeeId}
     ```
 
 ##### Get Average
