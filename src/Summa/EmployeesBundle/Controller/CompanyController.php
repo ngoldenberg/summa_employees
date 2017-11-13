@@ -31,10 +31,8 @@ class CompanyController extends FOSRestController implements ClassResourceInterf
     }
 
     public function getAverageAction($id){
-        $companiesServices = $this->get('employees.companies_service');
-        $averageAge = $companiesServices->getAverageAge($id);
-
-        $view = $this->getView(["averageAge" => $averageAge], ['Default', 'employees']);
+        $res = $this->getDoctrine()->getRepository("EmployeesBundle:Company")->findAgeAvg($id);
+        $view = $this->getView(["ageAvg" => round($res)], ['Default', 'employees']);
         return $this->handleView($view);
     }
 

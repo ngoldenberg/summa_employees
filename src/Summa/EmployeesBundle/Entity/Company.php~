@@ -26,14 +26,144 @@ class Company
     private $businessName;
 
     /**
-     * @ORM\OneToMany(targetEntity="Employee", mappedBy="company")
+     * @ORM\OneToMany(targetEntity="Employee", mappedBy="company", cascade={"persist"})
      * @JMS\Groups({"employees"})
      */
     private $employees;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @JMS\SerializedName("ageAvg")
+     */
+    protected $ageAvg;
 
     /**
      * @ORM\Column(type="boolean")
      */
     private $active = true;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->employees = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @ORM\PostPersist
+     * @ORM\PostUpdate
+     * @ORM\PostUpdate
+     */
+    private function updateAgeAvg()
+    {
+        $ageAvg = 0;
+        foreach ($this->employees as $employee){
+            $ageAvg += $employee->getAge();
+        }
+        $this->ageAvg = round($ageAvg / count($this->employees));
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set businessName
+     *
+     * @param string $businessName
+     *
+     * @return Company
+     */
+    public function setBusinessName($businessName)
+    {
+        $this->businessName = $businessName;
+
+        return $this;
+    }
+
+    /**
+     * Get businessName
+     *
+     * @return string
+     */
+    public function getBusinessName()
+    {
+        return $this->businessName;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return Company
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Add employee
+     *
+     * @param \Summa\EmployeesBundle\Entity\Employee $employee
+     *
+     * @return Company
+     */
+    public function addEmployee(\Summa\EmployeesBundle\Entity\Employee $employee)
+    {
+        $this->employees[] = $employee;
+
+        return $this;
+    }
+
+    /**
+     * Remove employee
+     *
+     * @param \Summa\EmployeesBundle\Entity\Employee $employee
+     */
+    public function removeEmployee(\Summa\EmployeesBundle\Entity\Employee $employee)
+    {
+        $this->employees->removeElement($employee);
+    }
+
+    /**
+     * Get employees
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEmployees()
+    {
+        return $this->employees;
+    }
+
+    /**
+     * Get ageAvg
+     *
+     * @return integer
+     */
+    public function getAgeAvg()
+    {
+        return $this->ageAvg;
+    }
 }

@@ -25,4 +25,52 @@ class Developer extends Employee
      */
     private $programmingLanguage;
 
+
+    /**
+     * Set programmingLanguageId
+     *
+     * @param integer $programmingLanguageId
+     *
+     * @return Developer
+     */
+    public function setProgrammingLanguageId($programmingLanguageId)
+    {
+        $this->programmingLanguageId = $programmingLanguageId;
+
+        return $this;
+    }
+
+    /**
+     * Get programmingLanguageId
+     *
+     * @return integer
+     */
+    public function getProgrammingLanguageId()
+    {
+        return $this->programmingLanguageId;
+    }
+
+    /**
+     * Set programmingLanguage
+     *
+     * @param \Summa\EmployeesBundle\Entity\ProgrammingLanguage $programmingLanguage
+     *
+     * @return Developer
+     */
+    public function setProgrammingLanguage(\Summa\EmployeesBundle\Entity\ProgrammingLanguage $programmingLanguage = null)
+    {
+        $this->programmingLanguage = $programmingLanguage;
+
+        return $this;
+    }
+
+    /**
+     * Get programmingLanguage
+     *
+     * @return \Summa\EmployeesBundle\Entity\ProgrammingLanguage
+     */
+    public function getProgrammingLanguage()
+    {
+        return $this->programmingLanguage;
+    }
 }

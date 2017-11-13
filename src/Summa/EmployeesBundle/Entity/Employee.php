@@ -60,7 +60,6 @@ abstract class Employee
      */
     private $active = true;
 
-
     /**
      * Get id
      *

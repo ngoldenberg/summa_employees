@@ -18,4 +18,28 @@ class Designer extends Employee
      */
     private $graphicDesigner;
 
+
+    /**
+     * Set graphicDesigner
+     *
+     * @param boolean $graphicDesigner
+     *
+     * @return Designer
+     */
+    public function setGraphicDesigner($graphicDesigner)
+    {
+        $this->graphicDesigner = $graphicDesigner;
+
+        return $this;
+    }
+
+    /**
+     * Get graphicDesigner
+     *
+     * @return boolean
+     */
+    public function getGraphicDesigner()
+    {
+        return $this->graphicDesigner;
+    }
 }

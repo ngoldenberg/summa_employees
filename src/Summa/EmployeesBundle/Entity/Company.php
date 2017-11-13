@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Table("companies")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Summa\EmployeesBundle\Repository\CompanyRepository")
  */
 class Company
 {
@@ -26,7 +26,7 @@ class Company
     private $businessName;
 
     /**
-     * @ORM\OneToMany(targetEntity="Employee", mappedBy="company")
+     * @ORM\OneToMany(targetEntity="Employee", mappedBy="company", cascade={"persist"})
      * @JMS\Groups({"employees"})
      */
     private $employees;
@@ -135,4 +135,5 @@ class Company
     {
         return $this->employees;
     }
+
 }
